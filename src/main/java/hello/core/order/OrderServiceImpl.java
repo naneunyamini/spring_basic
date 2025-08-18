@@ -6,9 +6,22 @@ import hello.core.member.*;
 
 public class OrderServiceImpl implements OrderService {
 
-    // 필요한 두 가지
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
-    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+
+    // config 추가하기 전
+   /*  private final MemberRepository memberRepository = new MemoryMemberRepository();
+       DIP (의존성 역전) 지키기 : 인터페이스에만 의존하기 -> 하지만 null pointer exception 발생 !!
+       private DiscountPolicy discountPolicy;
+     */
+
+    // config 추가 후
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
+
+    // config 추가 후 생성자도 생성해야함
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
 
     @Override
